@@ -17,7 +17,7 @@
 - **`nb_capture`** — hashes the notebook and every environment declaration next to it (`requirements.txt`, `environment.yml`, `pyproject.toml`, `renv.lock`, `Pipfile`, `Dockerfile`, …), stores the notebook as immutable REP evidence, and writes a record whose artifacts are the notebook and environment hashes.
 - **`nb_card`** — Markdown card + SARIF 2.1.0.
 
-## 它做什么 not do
+## 它不做什么
 
 - **No execution.** Nothing is run; the card is about the saved file.
 - **No guarantee of reproducibility.** A clean card means the file is self-describing, not that the results can be regenerated.
@@ -78,7 +78,7 @@ dsh --profile <name> --dump-config | grep dsh-notebook-capture
 | `enabled` | `true` | `false` mounts nothing |
 | `root` | `.notebook-capture` | store/record root |
 | `workspaceRoot` | `process.cwd()` | notebook paths must resolve inside it |
-| `maxBytes` | `10485760` | notebook cap (fails, never truncates) |
+| `maxBytes` | `10485760` | notebook file or text cap (fails, never truncates) |
 | `persist` | `true` | store notebook as REP evidence + record |
 
 ## 安全边界
@@ -90,7 +90,7 @@ dsh --profile <name> --dump-config | grep dsh-notebook-capture
 
 ## 评测
 
-**19 tests**: source-array joining, invalid JSON/non-notebook rejection, cell counting, out-of-order detection, never-run cells, imports/installs/seeds/absolute paths, kernel metadata, capture with environment hash + valid REP record (notebook + env artifacts), analyze from text and file, traversal/invalid/oversize rejection, tool schemas, analyze→capture→card end-to-end, failure branches, package contract.
+**16 tests**: source-array joining, invalid JSON/non-notebook/malformed-cell rejection, cell counting, out-of-order detection, never-run cells, imports/installs/seeds/absolute paths (one seed finding per call), kernel metadata, capture with environment hash + valid REP record (notebook + env artifacts), analyze from text and file, file/text size caps, traversal/symlink/invalid/oversize rejection, tool schemas, analyze→capture→card end-to-end, malformed-capture rejection, failure branches, plugin contract, package contract. The synthetic notebook fixture lives in `test/fixtures.ts`, so importing it does not re-register another suite's tests.
 
 No benchmark is claimed: these are structural checks on a file format, pinned by fixtures; there is no labelled corpus of reproducibility outcomes.
 

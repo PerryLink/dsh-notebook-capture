@@ -6,6 +6,26 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- `nb_analyze` text input now enforces the same byte cap as file input; the
+  config cap previously applied to files only.
+- A notebook whose `cells` array contains a non-object (e.g. `null`) or whose
+  metadata is not an object is rejected as `NOT_NOTEBOOK`/ignored instead of
+  throwing a raw `TypeError`.
+- `nb_card` validates the capture payload and returns `INVALID_INPUT` for a
+  partial or malformed object instead of throwing.
+- `np.random.seed(…)` is no longer also reported as `random.seed`; the R/Python
+  seed regexes overlap less.
+
+### Changed
+
+- Moved the synthetic notebook fixture out of `analyze.spec.ts` into
+  `test/fixtures.ts`. `runtime-tools.spec.ts` imported the spec file, which
+  re-registered all six analysis tests and inflated the reported count (19
+  counted, 13 unique); the suite now reports its 16 real tests. Added text-cap,
+  symlink, malformed-capture and plugin-mount regression tests.
+
 ## [0.1.0] - 2026-11-08
 
 First release: notebook reproducibility capture.

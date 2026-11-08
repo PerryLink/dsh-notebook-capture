@@ -3,7 +3,7 @@
  * @module test/runtime-tools.spec
  */
 
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { validateRep } from '@perrylink/dsh-research-core'
@@ -14,7 +14,7 @@ import { makeNbAnalyzeTool } from '../src/tools/nb-analyze.ts'
 import { makeNbCaptureTool } from '../src/tools/nb-capture.ts'
 import { makeNbCardTool } from '../src/tools/nb-card.ts'
 import { VERSION } from '../src/version.ts'
-import { fixtureNotebook } from './analyze.spec.ts'
+import { fixtureNotebook } from './fixtures.ts'
 
 const AT = new Date('2026-11-02T09:00:00.000Z')
 let workspace: string
@@ -66,6 +66,18 @@ describe('runtime', () => {
     await expect(runtime().analyze({ path: 'other.ipynb' })).rejects.toMatchObject({ code: 'NOT_NOTEBOOK' })
     const tiny = new NotebookRuntime({ config: resolveConfig({ workspaceRoot: workspace, root: store, maxBytes: 10 }), now: () => AT })
     await expect(tiny.capture({ path: 'analysis.ipynb' })).rejects.toMatchObject({ code: 'TOO_LARGE' })
+    await expect(tiny.analyze({ text: fixtureNotebook() })).rejects.toMatchObject({ code: 'TOO_LARGE' })
+  })
+
+  it.runIf(process.platform !== 'win32')('rejects a symlink that escapes the workspace', async () => {
+    const outside = await mkdtemp(path.join(tmpdir(), 'nb-outside-'))
+    try {
+      await writeFile(path.join(outside, 'secret.ipynb'), fixtureNotebook(), 'utf8')
+      await symlink(path.join(outside, 'secret.ipynb'), path.join(workspace, 'linked.ipynb'))
+      await expect(runtime().capture({ path: 'linked.ipynb' })).rejects.toMatchObject({ code: 'PATH_ESCAPE' })
+    } finally {
+      if (outside.startsWith(tmpdir())) await rm(outside, { recursive: true, force: true })
+    }
   })
 })
 
@@ -104,6 +116,8 @@ describe('tools', () => {
     expect(value.error.code).toBe('INVALID_INPUT')
     const noCapture = (await makeNbCardTool().execute({ capture: {} }, EXEC)) as { ok: false; error: { code: string } }
     expect(noCapture.error.code).toBe('INVALID_INPUT')
+    const partialCapture = (await makeNbCardTool().execute({ capture: { analysis: {} } }, EXEC)) as { ok: false; error: { code: string } }
+    expect(partialCapture.error.code).toBe('INVALID_INPUT')
   })
 })
 

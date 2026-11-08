@@ -5,25 +5,7 @@
 
 import { describe, expect, it } from 'vitest'
 import { analyzeNotebook, NotebookError, parseNotebook } from '../src/analyze.ts'
-
-/** A notebook with out-of-order execution, a runtime install, a seed and an absolute path. */
-export function fixtureNotebook(): string {
-  return JSON.stringify({
-    nbformat: 4,
-    nbformat_minor: 5,
-    metadata: {
-      kernelspec: { name: 'python3', display_name: 'Python 3', language: 'python' },
-      language_info: { name: 'python', version: '3.11.5' },
-    },
-    cells: [
-      { cell_type: 'markdown', source: ['# Analysis'] },
-      { cell_type: 'code', execution_count: 1, outputs: [], source: ['import numpy as np\n', 'import pandas as pd\n'] },
-      { cell_type: 'code', execution_count: 3, outputs: [], source: ['np.random.seed(42)\n', "df = pd.read_csv('/home/user/data.csv')\n"] },
-      { cell_type: 'code', execution_count: 2, outputs: [], source: ['!pip install seaborn\n'] },
-      { cell_type: 'code', execution_count: null, outputs: [], source: ['model = fit()\n'] },
-    ],
-  })
-}
+import { fixtureNotebook } from './fixtures.ts'
 
 describe('parse', () => {
   it('joins source arrays and reads metadata', () => {
@@ -36,6 +18,8 @@ describe('parse', () => {
   it('rejects invalid JSON and non-notebooks', () => {
     expect(() => parseNotebook('{oops')).toThrow(NotebookError)
     expect(() => parseNotebook('{"foo":1}')).toThrow(/no cells/u)
+    expect(() => parseNotebook('{"cells":[null]}')).toThrow(/cell must be a JSON object/u)
+    expect(() => parseNotebook('{"cells":[{"cell_type":"code"}]}')).not.toThrow()
   })
 })
 
@@ -55,6 +39,7 @@ describe('analysis', () => {
   it('finds imports, installs, seeds and absolute paths', () => {
     expect(analysis.imports.map(finding => finding.module)).toEqual(['numpy', 'pandas'])
     expect(analysis.installs[0]!.command).toContain('pip install seaborn')
+    expect(analysis.seeds).toHaveLength(1)
     expect(analysis.seeds[0]).toMatchObject({ pattern: 'np.random.seed', value: 42, cell: 3 })
     expect(analysis.paths[0]!.path).toBe('/home/user/data.csv')
     expect(analysis.issues.some(issue => issue.code === 'runtime_install')).toBe(true)

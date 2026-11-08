@@ -123,8 +123,12 @@ export class NotebookRuntime {
   async analyze(request: { text?: string; path?: string }): Promise<NotebookAnalysis> {
     if ((request.text === undefined) === (request.path === undefined)) throw new NbError('INVALID_INPUT', 'pass exactly one of text or path')
     let text: string
-    if (request.text !== undefined) text = request.text
-    else {
+    if (request.text !== undefined) {
+      if (typeof request.text !== 'string') throw new NbError('INVALID_INPUT', 'text must be a string')
+      const bytes = Buffer.byteLength(request.text, 'utf8')
+      if (bytes > this.config.maxBytes) throw new NbError('TOO_LARGE', `notebook text is ${bytes} bytes, the cap is ${this.config.maxBytes}`)
+      text = request.text
+    } else {
       const file = await this.resolve(request.path!)
       text = await readFile(file.absolute, 'utf8')
     }

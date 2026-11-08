@@ -106,16 +106,24 @@ export function parseNotebook(text: string): Notebook {
   if (typeof record !== 'object' || record === null || !Array.isArray(record.cells)) {
     throw new NotebookError('NOT_NOTEBOOK', 'the JSON has no cells array; this is not a Jupyter notebook')
   }
-  const cells: NotebookCell[] = (record.cells as Array<Record<string, unknown>>).map(cell => ({
-    cellType: typeof cell['cell_type'] === 'string' ? cell['cell_type'] : 'code',
-    source: sourceOf(cell['source']),
-    ...(typeof cell['execution_count'] === 'number' ? { executionCount: cell['execution_count'] } : {}),
-    outputs: Array.isArray(cell['outputs']) ? cell['outputs'].length : 0,
-  }))
+  const cells: NotebookCell[] = (record.cells as unknown[]).map(value => {
+    if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+      throw new NotebookError('NOT_NOTEBOOK', 'every notebook cell must be a JSON object')
+    }
+    const cell = value as Record<string, unknown>
+    return {
+      cellType: typeof cell['cell_type'] === 'string' ? cell['cell_type'] : 'code',
+      source: sourceOf(cell['source']),
+      ...(typeof cell['execution_count'] === 'number' ? { executionCount: cell['execution_count'] } : {}),
+      outputs: Array.isArray(cell['outputs']) ? cell['outputs'].length : 0,
+    }
+  })
+  const rawMetadata = record.metadata
+  const metadata = typeof rawMetadata === 'object' && rawMetadata !== null && !Array.isArray(rawMetadata) ? (rawMetadata as Record<string, unknown>) : {}
   return {
     ...(typeof record.nbformat === 'number' ? { nbformat: record.nbformat } : {}),
     cells,
-    metadata: (record.metadata ?? {}) as Record<string, unknown>,
+    metadata,
   }
 }
 
@@ -140,7 +148,7 @@ function seedsOf(source: string, cell: number): SeedFinding[] {
   const found: SeedFinding[] = []
   const patterns: Array<{ pattern: string; regex: RegExp }> = [
     { pattern: 'np.random.seed', regex: /np\.random\.seed\(\s*(\d+)/gu },
-    { pattern: 'random.seed', regex: /\brandom\.seed\(\s*(\d+)/gu },
+    { pattern: 'random.seed', regex: /(?<![\w.])random\.seed\(\s*(\d+)/gu },
     { pattern: 'set.seed', regex: /\bset\.seed\(\s*(\d+)/gu },
     { pattern: 'torch.manual_seed', regex: /torch\.manual_seed\(\s*(\d+)/gu },
     { pattern: 'tf.random.set_seed', regex: /tf\.random\.set_seed\(\s*(\d+)/gu },
