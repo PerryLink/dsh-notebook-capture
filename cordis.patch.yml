@@ -1,0 +1,14 @@
+# dsh-notebook-capture bundle patch: mount the notebook capture tools.
+#
+# Every key below is a Config field (Schemastery schema); invalid values fail the
+# profile load loudly. Only the .ipynb JSON is read; nothing is executed.
+- insert:
+    - id: dsh-notebook-capture
+      name: dsh-notebook-capture
+      config:
+        enabled: true
+        root: .notebook-capture
+        # 10 MiB notebook cap; over-limit fails, never truncated.
+        maxBytes: 10485760
+        # Store the notebook as REP evidence + record.
+        persist: true
