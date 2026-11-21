@@ -112,7 +112,7 @@ dsh --profile <name> --dump-config | grep dsh-notebook-capture
 *एनिमेटेड: 2026-11-21 की असली `pnpm test` output (4 टेस्ट फ़ाइलें, 17 टेस्ट)। इस plugin का CLI नहीं है, इसलिए उसका अपना suite ही वह रन है — parsing, execution-order detection, REP record के साथ capture, और card।*
 
 
-**16 टेस्ट**: source arrays का जोड़, अमान्य JSON/गैर-notebook/खराब cell का अस्वीकार, cell गिनती, out-of-order पहचान, कभी न चली cells, imports/installs/seeds/absolute paths (प्रति कॉल एक seed finding), kernel metadata, environment hash + वैध REP record के साथ capture (notebook + env artifacts), text और file दोनों से analyze, file/text आकार सीमाएँ, traversal/symlink/अमान्य/अति-बड़े का अस्वीकार, tool schemas, analyze→capture→card end-to-end, खराब capture का अस्वीकार, failure शाखाएँ, plugin contract, package contract। कृत्रिम notebook fixture `test/fixtures.ts` में रहता है, इसलिए उसे import करने से किसी दूसरे suite के टेस्ट दोबारा पंजीकृत नहीं होते।
+**17 टेस्ट**: source arrays का जोड़, अमान्य JSON/गैर-notebook/खराब cell का अस्वीकार, cell गिनती, out-of-order पहचान, कभी न चली cells, imports/installs/seeds/absolute paths (प्रति कॉल एक seed finding), kernel metadata, environment hash + वैध REP record के साथ capture (notebook + env artifacts), text और file दोनों से analyze, file/text आकार सीमाएँ, traversal/symlink/अमान्य/अति-बड़े का अस्वीकार, tool schemas, analyze→capture→card end-to-end, खराब capture का अस्वीकार, failure शाखाएँ, plugin contract, package contract। कृत्रिम notebook fixture `test/fixtures.ts` में रहता है, इसलिए उसे import करने से किसी दूसरे suite के टेस्ट दोबारा पंजीकृत नहीं होते।
 
 कोई benchmark दावा नहीं किया गया: ये एक फ़ाइल फ़ॉर्मैट पर संरचनात्मक जाँचें हैं, fixtures से स्थिर; reproducibility परिणामों का कोई labelled corpus नहीं है।
 

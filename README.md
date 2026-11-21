@@ -112,7 +112,7 @@ dsh --profile <name> --dump-config | grep dsh-notebook-capture
 *Animated: the real `pnpm test` output on 2026-11-21 (4 test files, 17 tests). The plugin has no CLI, so its own suite is the run — parsing, execution-order detection, capture with a REP record, and the card.*
 
 
-**16 tests**: source-array joining, invalid JSON/non-notebook/malformed-cell rejection, cell counting, out-of-order detection, never-run cells, imports/installs/seeds/absolute paths (one seed finding per call), kernel metadata, capture with environment hash + valid REP record (notebook + env artifacts), analyze from text and file, file/text size caps, traversal/symlink/invalid/oversize rejection, tool schemas, analyze→capture→card end-to-end, malformed-capture rejection, failure branches, plugin contract, package contract. The synthetic notebook fixture lives in `test/fixtures.ts`, so importing it does not re-register another suite's tests.
+**17 tests**: source-array joining, invalid JSON/non-notebook/malformed-cell rejection, cell counting, out-of-order detection, never-run cells, imports/installs/seeds/absolute paths (one seed finding per call), kernel metadata, capture with environment hash + valid REP record (notebook + env artifacts), analyze from text and file, file/text size caps, traversal/symlink/invalid/oversize rejection, tool schemas, analyze→capture→card end-to-end, malformed-capture rejection, failure branches, plugin contract, package contract. The synthetic notebook fixture lives in `test/fixtures.ts`, so importing it does not re-register another suite's tests.
 
 No benchmark is claimed: these are structural checks on a file format, pinned by fixtures; there is no labelled corpus of reproducibility outcomes.
 

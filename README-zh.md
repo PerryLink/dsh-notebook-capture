@@ -112,7 +112,7 @@ dsh --profile <name> --dump-config | grep dsh-notebook-capture
 *动图是 2026-11-21 真实运行的 `pnpm test` 输出（4 个测试文件、17 个测试）。插件没有 CLI，它自己的测试套件就是那次运行 —— 解析、执行顺序检测、带 REP 记录的 capture，以及卡片。*
 
 
-**16 个测试**：source 数组拼接、无效 JSON/非 notebook/畸形单元的拒绝、单元计数、乱序检测、从未运行的单元、import/安装/种子/绝对路径（每次调用只报一条种子发现）、内核元数据、带环境哈希的 capture 与有效 REP 记录（notebook + 环境 artifacts）、分别从文本和文件 analyze、文件/文本大小上限、路径穿越/符号链接/无效/超大文件拒绝、工具 schema、analyze→capture→card 端到端、畸形 capture 拒绝、失败分支、插件契约、包契约。合成 notebook fixture 位于 `test/fixtures.ts`，因此导入它不会重复注册另一个测试套件的用例。
+**17 个测试**：source 数组拼接、无效 JSON/非 notebook/畸形单元的拒绝、单元计数、乱序检测、从未运行的单元、import/安装/种子/绝对路径（每次调用只报一条种子发现）、内核元数据、带环境哈希的 capture 与有效 REP 记录（notebook + 环境 artifacts）、分别从文本和文件 analyze、文件/文本大小上限、路径穿越/符号链接/无效/超大文件拒绝、工具 schema、analyze→capture→card 端到端、畸形 capture 拒绝、失败分支、插件契约、包契约。合成 notebook fixture 位于 `test/fixtures.ts`，因此导入它不会重复注册另一个测试套件的用例。
 
 不宣称任何基准成绩：这些是对一种文件格式的结构性检查，由 fixture 固定；没有可复现结果的人工标注语料。
 
