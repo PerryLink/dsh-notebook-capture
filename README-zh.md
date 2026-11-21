@@ -1,13 +1,22 @@
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-notebook-capture-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-notebook-capture-hero-zh-light.webp" width="100%" alt="dsh-notebook-capture 配图：fixture notebook 保存下来的单元 —— 执行顺序 1、3、2 记为 out_of_order，第 5 个单元从未运行，运行时 pip 安装与 /home/user/data.csv 绝对路径都记 warn —— 右侧是 issues 列表、notebook 的 sha256 与环境声明哈希，下方写明卡片只描述保存的文件">
+</picture>
+
 # dsh-notebook-capture
 
 **能在你机器上跑通的 notebook，还不等于可复现。请记录保存下来的文件到底写了什么。**
 
 *不执行、只读取 `.ipynb` JSON：内核、执行顺序、import、运行时安装、随机种子、绝对路径、输出状态，以及 notebook 及其环境声明文件的哈希——产出 REP 证据和 Markdown 卡片。*
 
+[English](README.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%5E22.19%20%7C%7C%20%3E%3D24.9-brightgreen.svg)]()
 
-[English](README.md) · 简体中文
+</div>
 
 ---
 
@@ -16,6 +25,14 @@
 - **`nb_analyze`** — 解析 notebook 并报告：内核/语言/版本、代码单元与 Markdown 单元、执行计数（`out-of-order` 与 `never run`）、import（Python 与 R）、运行时安装（`!pip install`、`%conda install`、`install.packages`）、种子字面量、绝对路径，以及是否保存了输出。
 - **`nb_capture`** — 对 notebook 及其旁边的每个环境声明文件（`requirements.txt`、`environment.yml`、`pyproject.toml`、`renv.lock`、`Pipfile`、`Dockerfile` 等）计算哈希，把 notebook 存为不可变的 REP 证据，并写一条记录，其 artifacts 就是 notebook 与环境声明文件的哈希。
 - **`nb_card`** — Markdown 卡片 + SARIF 2.1.0。
+
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-notebook-capture-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-notebook-capture-flow-v5-light.svg" width="100%" alt="dsh-notebook-capture 结构图：保存下来的 .ipynb 在不执行的前提下被分析 —— 内核、执行顺序、import、运行时安装、种子、绝对路径与输出状态 —— 再对 notebook 与每个环境声明文件计算哈希，存为逐条问题的 REP 证据，并渲染成 Markdown 卡片与 SARIF 2.1.0；结论留给审阅人">
+</picture>
+
+*结构：分析 → 捕获 → 报告；`analysis.issues[]` 与 `capture` 是两条输出，`nb_card` 把它们渲染成 Markdown 与 SARIF 2.1.0。图内只有工具名与字段名，五语共用同一张结构图。*
 
 ## 它不做什么
 
@@ -89,6 +106,11 @@ dsh --profile <name> --dump-config | grep dsh-notebook-capture
 - notebook JSON 视为数据；单元源码永远不会被执行。
 
 ## 评测
+
+![dsh-notebook-capture 测试套件：4 个测试文件的真实运行 —— 6 个解析与分析测试、8 个运行时与工具测试、挂载契约与 2 个插件测试全部通过](docs/assets/dsh-notebook-capture-demo.gif)
+
+*动图是 2026-11-21 真实运行的 `pnpm test` 输出（4 个测试文件、17 个测试）。插件没有 CLI，它自己的测试套件就是那次运行 —— 解析、执行顺序检测、带 REP 记录的 capture，以及卡片。*
+
 
 **16 个测试**：source 数组拼接、无效 JSON/非 notebook/畸形单元的拒绝、单元计数、乱序检测、从未运行的单元、import/安装/种子/绝对路径（每次调用只报一条种子发现）、内核元数据、带环境哈希的 capture 与有效 REP 记录（notebook + 环境 artifacts）、分别从文本和文件 analyze、文件/文本大小上限、路径穿越/符号链接/无效/超大文件拒绝、工具 schema、analyze→capture→card 端到端、畸形 capture 拒绝、失败分支、插件契约、包契约。合成 notebook fixture 位于 `test/fixtures.ts`，因此导入它不会重复注册另一个测试套件的用例。
 

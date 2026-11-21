@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="660" viewBox="0 0 1100 660" role="img" aria-label="dsh-notebook-capture structure diagram">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="#131a2a"/><stop offset="1" stop-color="#0c1016"/></linearGradient>
+<filter id="soft" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#16122c" flood-opacity="0.45"/></filter>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.4" markerHeight="6.4" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8496f5"/></marker>
+</defs>
+<rect width="1100" height="660" fill="url(#bg)"/>
+<text x="44" y="58" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="28" font-weight="700">dsh-notebook-capture</text>
+<text x="44" y="88" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="15">notebook.ipynb → saved-file analysis → sha256 + env hashes → REP evidence → card + SARIF</text>
+<rect x="860.96875" y="36" width="195.03125" height="26" rx="13.0" fill="#202839"/>
+<text x="872.96875" y="53.08" fill="#8496f5" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="12" font-weight="700">3 tools · 13 env declarations</text>
+<rect x="44" y="120" width="214" height="250" rx="18" fill="#1b2231" stroke="#2e374b" stroke-width="1.5" filter="url(#soft)"/>
+<text x="62" y="146" fill="#737b8d" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="12" font-weight="700">01</text>
+<text x="62" y="172" fill="#f0f3f9" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="16.5" font-weight="700">Analyze</text>
+<text x="62" y="196" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11.5">saved file → findings</text>
+<rect x="62" y="209" width="178" height="26" rx="8" fill="#202839"/>
+<text x="72" y="227" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">nb_analyze</text>
+<rect x="62" y="241" width="178" height="26" rx="8" fill="#202839"/>
+<text x="72" y="259" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">execution_order</text>
+<rect x="62" y="273" width="178" height="26" rx="8" fill="#202839"/>
+<text x="72" y="291" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">imports · seeds</text>
+<line x1="260" y1="245.0" x2="276" y2="245.0" stroke="#8496f5" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="278" y="120" width="214" height="250" rx="18" fill="#1b2231" stroke="#2e374b" stroke-width="1.5" filter="url(#soft)"/>
+<text x="296" y="146" fill="#737b8d" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="12" font-weight="700">02</text>
+<text x="296" y="172" fill="#f0f3f9" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="16.5" font-weight="700">Capture</text>
+<text x="296" y="196" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11.5">hash notebook + env</text>
+<rect x="296" y="209" width="178" height="26" rx="8" fill="#202839"/>
+<text x="306" y="227" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">nb_capture</text>
+<rect x="296" y="241" width="178" height="26" rx="8" fill="#202839"/>
+<text x="306" y="259" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">notebook sha256</text>
+<rect x="296" y="273" width="178" height="26" rx="8" fill="#202839"/>
+<text x="306" y="291" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">environment[] hashes</text>
+<line x1="494" y1="245.0" x2="510" y2="245.0" stroke="#8496f5" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="512" y="120" width="214" height="250" rx="18" fill="#1b2231" stroke="#2e374b" stroke-width="1.5" filter="url(#soft)"/>
+<text x="530" y="146" fill="#737b8d" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="12" font-weight="700">03</text>
+<text x="530" y="172" fill="#f0f3f9" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="16.5" font-weight="700">Report</text>
+<text x="530" y="196" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11.5">REP record + card</text>
+<rect x="530" y="209" width="178" height="26" rx="8" fill="#202839"/>
+<text x="540" y="227" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">nb_card</text>
+<rect x="530" y="241" width="178" height="26" rx="8" fill="#202839"/>
+<text x="540" y="259" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">Markdown card</text>
+<rect x="530" y="273" width="178" height="26" rx="8" fill="#202839"/>
+<text x="540" y="291" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">SARIF 2.1.0</text>
+<rect x="752" y="120" width="304" height="148" rx="18" fill="#1b2231" stroke="#2e374b" stroke-width="1.5" filter="url(#soft)"/>
+<text x="772" y="148" fill="#8496f5" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="14.5" font-weight="700">analysis.issues[]</text>
+<rect x="951.9375" y="130" width="87.171875" height="18" rx="9.0" fill="#202839"/>
+<text x="960.9375" y="142.57" fill="#8496f5" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="10.5">warning | info</text>
+<text x="772" y="176" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">out_of_order: [1, 3, 2]</text>
+<text x="772" y="198" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">unexecuted_cells: 1</text>
+<text x="772" y="220" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">runtime_install: 1</text>
+<text x="772" y="242" fill="#a8b1c4" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">absolute_paths: 1</text>
+<rect x="752" y="288" width="304" height="122" rx="18" fill="#1b2231" stroke="#2e374b" stroke-width="1.5" filter="url(#soft)"/>
+<text x="772" y="316" fill="#a8b1c4" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="14.5" font-weight="700">capture</text>
+<rect x="988.5625" y="298" width="53.59375" height="18" rx="9.0" fill="#202839"/>
+<text x="997.5625" y="310.57" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="10.5">sha256</text>
+<text x="772" y="344" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">notebook: bytes + sha256</text>
+<text x="772" y="366" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">environment[]: 13 files</text>
+<text x="772" y="388" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5">capturedAt: ISO 8601</text>
+<rect x="752" y="430" width="304" height="82" rx="18" fill="#1b2231" stroke="#8496f5" stroke-width="1.6" filter="url(#soft)"/>
+<text x="772" y="458" fill="#f0f3f9" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="13.5" font-weight="700">reviewer</text>
+<text x="772" y="482" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11.5">a clean card means self-describing</text>
+<text x="772" y="502" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="10.5">not that the results regenerate</text>
+<path d="M730 245.0 H742" fill="none" stroke="#8496f5" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M742 210 V471" fill="none" stroke="#8496f5" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="742" y1="194" x2="750" y2="194" stroke="#8496f5" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="742" y1="349" x2="750" y2="349" stroke="#8496f5" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="742" y1="471" x2="750" y2="471" stroke="#8496f5" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="44" y1="420" x2="714" y2="420" stroke="#2b3348" stroke-width="1"/>
+<text x="44" y="444" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">Every finding is about the saved file: imports, seeds and paths come from regexes over cell source.</text>
+<text x="44" y="464" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">Nothing is executed; a clean card does not prove the notebook reproduces its outputs.</text>
+<line x1="44" y1="564" x2="1056" y2="564" stroke="#2b3348" stroke-width="1"/>
+<text x="44" y="588" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11.5">config: enabled · root · workspaceRoot · maxBytes · persist</text>
+<text x="44" y="610" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11.5">read-only .ipynb · nothing executed · no dependency resolution · zero runtime dependencies</text>
+</svg>
