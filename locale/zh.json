@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Notebook 复现采集",
+    "description": "能在你机器上跑通的 notebook，还不等于可复现。不执行、只读取 .ipynb：内核、执行顺序、import、运行时安装、随机种子、绝对路径、输出状态与哈希。"
+  }
+}

@@ -7,6 +7,8 @@
 
 # dsh-notebook-capture
 
+当前版本 `0.1.4`。
+
 **A notebook that runs on your machine is not yet reproducible. Capture what the saved file actually says.**
 
 *Reads `.ipynb` JSON without executing it: kernel, execution order, imports, runtime installs, seeds, absolute paths, output state, and hashes of the notebook plus its environment declarations — as REP evidence and a Markdown card.*
