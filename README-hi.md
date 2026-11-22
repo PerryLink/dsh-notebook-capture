@@ -26,7 +26,6 @@
 - **`nb_capture`** — notebook और उसके पास की हर environment declaration (`requirements.txt`, `environment.yml`, `pyproject.toml`, `renv.lock`, `Pipfile`, `Dockerfile`, …) का hash निकालता है, notebook को अपरिवर्तनीय REP evidence के रूप में रखता है, और एक record लिखता है जिसके artifacts notebook और environment के hashes हैं।
 - **`nb_card`** — Markdown card + SARIF 2.1.0.
 
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-notebook-capture-flow-v5-dark.svg">
   <img src="docs/assets/dsh-notebook-capture-flow-v5-light.svg" width="100%" alt="dsh-notebook-capture संरचना: सहेजा गया .ipynb बिना execution के विश्लेषित होता है — kernel, execution order, imports, runtime installs, seeds, absolute paths और output state — फिर notebook और हर environment declaration का hash लिया जाता है, हर issue के लिए एक check के साथ REP evidence के रूप में रखा जाता है, और Markdown card व SARIF 2.1.0 में render होता है; निर्णय समीक्षक के पास रहता है">
@@ -78,7 +77,7 @@
 
 | | |
 |---|---|
-| DeepSeek Harness | **`dsh-v0.2.2-rc.4`** (2026-11-18 को सत्यापित); peer `>=0.2.1-0 <0.3.0 \|\| >=0.2.2-0 <0.3.0` |
+| DeepSeek Harness | **`dsh-v0.2.3-alpha.1`** (2026-11-22 को सत्यापित); peer `>=0.2.1-0 <0.3.0 \|\| >=0.2.2-0 <0.3.0` |
 | Node | `^22.19.0 \|\| >=24.9.0` (`24.22.1` पर परीक्षित), केवल ESM |
 | Peers | `@perrylink/dsh-research-core ^0.1.0`, `@deepseek-ai/cordis ^4.0.5-alpha.1`, `@deepseek-ai/dsh-tools`, `@deepseek-ai/schemastery ^3.18.5-alpha.1` |
 | runtime dependencies | **शून्य** |
@@ -110,7 +109,6 @@ dsh --profile <name> --dump-config | grep dsh-notebook-capture
 ![dsh-notebook-capture टेस्ट सूट: 4 टेस्ट फ़ाइलों की असली रन — 6 analysis टेस्ट, 8 runtime व tool टेस्ट, mount contract और 2 plugin टेस्ट सभी पास](docs/assets/dsh-notebook-capture-demo.gif)
 
 *एनिमेटेड: 2026-11-21 की असली `pnpm test` output (4 टेस्ट फ़ाइलें, 17 टेस्ट)। इस plugin का CLI नहीं है, इसलिए उसका अपना suite ही वह रन है — parsing, execution-order detection, REP record के साथ capture, और card।*
-
 
 **17 टेस्ट**: source arrays का जोड़, अमान्य JSON/गैर-notebook/खराब cell का अस्वीकार, cell गिनती, out-of-order पहचान, कभी न चली cells, imports/installs/seeds/absolute paths (प्रति कॉल एक seed finding), kernel metadata, environment hash + वैध REP record के साथ capture (notebook + env artifacts), text और file दोनों से analyze, file/text आकार सीमाएँ, traversal/symlink/अमान्य/अति-बड़े का अस्वीकार, tool schemas, analyze→capture→card end-to-end, खराब capture का अस्वीकार, failure शाखाएँ, plugin contract, package contract। कृत्रिम notebook fixture `test/fixtures.ts` में रहता है, इसलिए उसे import करने से किसी दूसरे suite के टेस्ट दोबारा पंजीकृत नहीं होते।
 

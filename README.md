@@ -26,7 +26,6 @@
 - **`nb_capture`** — hashes the notebook and every environment declaration next to it (`requirements.txt`, `environment.yml`, `pyproject.toml`, `renv.lock`, `Pipfile`, `Dockerfile`, …), stores the notebook as immutable REP evidence, and writes a record whose artifacts are the notebook and environment hashes.
 - **`nb_card`** — Markdown card + SARIF 2.1.0.
 
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-notebook-capture-flow-v5-dark.svg">
   <img src="docs/assets/dsh-notebook-capture-flow-v5-light.svg" width="100%" alt="dsh-notebook-capture structure: a saved .ipynb is analyzed without execution — kernel, execution order, imports, runtime installs, seeds, absolute paths and output state — then the notebook and every environment declaration are hashed, stored as REP evidence with one check per issue, and rendered as a Markdown card and SARIF 2.1.0; the verdict stays with the reviewer">
@@ -78,7 +77,7 @@
 
 | | |
 |---|---|
-| DeepSeek Harness | **`dsh-v0.2.2-rc.4`** (verified 2026-11-18); peer `>=0.2.1-0 <0.3.0 \|\| >=0.2.2-0 <0.3.0` |
+| DeepSeek Harness | **`dsh-v0.2.3-alpha.1`** (verified 2026-11-22); peer `>=0.2.1-0 <0.3.0 \|\| >=0.2.2-0 <0.3.0` |
 | Node | `^22.19.0 \|\| >=24.9.0` (tested `24.22.1`), ESM only |
 | Peers | `@perrylink/dsh-research-core ^0.1.0`, `@deepseek-ai/cordis ^4.0.5-alpha.1`, `@deepseek-ai/dsh-tools`, `@deepseek-ai/schemastery ^3.18.5-alpha.1` |
 | Runtime dependencies | **zero** |
@@ -110,7 +109,6 @@ dsh --profile <name> --dump-config | grep dsh-notebook-capture
 ![dsh-notebook-capture test suite: a real run of the 4 test files — 6 analysis tests, 8 runtime and tool tests, the mount contract and 2 plugin tests all pass](docs/assets/dsh-notebook-capture-demo.gif)
 
 *Animated: the real `pnpm test` output on 2026-11-21 (4 test files, 17 tests). The plugin has no CLI, so its own suite is the run — parsing, execution-order detection, capture with a REP record, and the card.*
-
 
 **17 tests**: source-array joining, invalid JSON/non-notebook/malformed-cell rejection, cell counting, out-of-order detection, never-run cells, imports/installs/seeds/absolute paths (one seed finding per call), kernel metadata, capture with environment hash + valid REP record (notebook + env artifacts), analyze from text and file, file/text size caps, traversal/symlink/invalid/oversize rejection, tool schemas, analyze→capture→card end-to-end, malformed-capture rejection, failure branches, plugin contract, package contract. The synthetic notebook fixture lives in `test/fixtures.ts`, so importing it does not re-register another suite's tests.
 

@@ -26,7 +26,6 @@
 - **`nb_capture`** — calcula o hash do notebook e de cada declaração de ambiente ao lado dele (`requirements.txt`, `environment.yml`, `pyproject.toml`, `renv.lock`, `Pipfile`, `Dockerfile`, …), guarda o notebook como evidência REP imutável e grava um registro cujos artefatos são os hashes do notebook e do ambiente.
 - **`nb_card`** — cartão Markdown + SARIF 2.1.0.
 
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-notebook-capture-flow-v5-dark.svg">
   <img src="docs/assets/dsh-notebook-capture-flow-v5-light.svg" width="100%" alt="dsh-notebook-capture estrutura: um .ipynb salvo é analisado sem execução — kernel, ordem de execução, imports, instalações em tempo de execução, sementes, caminhos absolutos e estado das saídas — depois o notebook e cada declaração de ambiente recebem hash, são guardados como evidência REP com uma checagem por issue e renderizados como cartão Markdown e SARIF 2.1.0; o veredito fica com o revisor">
@@ -78,7 +77,7 @@
 
 | | |
 |---|---|
-| DeepSeek Harness | **`dsh-v0.2.2-rc.4`** (verificado em 2026-11-18); peer `>=0.2.1-0 <0.3.0 \|\| >=0.2.2-0 <0.3.0` |
+| DeepSeek Harness | **`dsh-v0.2.3-alpha.1`** (verificado em 2026-11-22); peer `>=0.2.1-0 <0.3.0 \|\| >=0.2.2-0 <0.3.0` |
 | Node | `^22.19.0 \|\| >=24.9.0` (testado em `24.22.1`), apenas ESM |
 | Peers | `@perrylink/dsh-research-core ^0.1.0`, `@deepseek-ai/cordis ^4.0.5-alpha.1`, `@deepseek-ai/dsh-tools`, `@deepseek-ai/schemastery ^3.18.5-alpha.1` |
 | Dependências em tempo de execução | **zero** |
@@ -110,7 +109,6 @@ dsh --profile <name> --dump-config | grep dsh-notebook-capture
 ![Suíte de testes do dsh-notebook-capture: uma execução real dos 4 arquivos de teste — 6 testes de análise, 8 testes de runtime e ferramentas, o contrato de montagem e 2 testes de plugin passam](docs/assets/dsh-notebook-capture-demo.gif)
 
 *Animado: a saída real de `pnpm test` em 2026-11-21 (4 arquivos de teste, 17 testes). O plugin não tem CLI, então a própria suíte é a execução — parsing, detecção de ordem de execução, captura com registro REP e o cartão.*
-
 
 **17 testes**: junção de arrays de source, rejeição de JSON inválido/não-notebook/célula malformada, contagem de células, detecção de ordem, células nunca executadas, imports/instalações/sementes/caminhos absolutos (uma finding de semente por chamada), metadados de kernel, captura com hash de ambiente + registro REP válido (artefatos de notebook + ambiente), análise a partir de texto e de arquivo, limites de tamanho de arquivo e texto, rejeição de traversal/symlink/inválido/grande demais, schemas de ferramentas, analyze→capture→card de ponta a ponta, rejeição de captura malformada, ramos de falha, contrato de plugin, contrato de pacote. O fixture sintético do notebook fica em `test/fixtures.ts`, então importá-lo não registra novamente os testes de outra suíte.
 

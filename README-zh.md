@@ -26,7 +26,6 @@
 - **`nb_capture`** — 对 notebook 及其旁边的每个环境声明文件（`requirements.txt`、`environment.yml`、`pyproject.toml`、`renv.lock`、`Pipfile`、`Dockerfile` 等）计算哈希，把 notebook 存为不可变的 REP 证据，并写一条记录，其 artifacts 就是 notebook 与环境声明文件的哈希。
 - **`nb_card`** — Markdown 卡片 + SARIF 2.1.0。
 
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-notebook-capture-flow-v5-dark.svg">
   <img src="docs/assets/dsh-notebook-capture-flow-v5-light.svg" width="100%" alt="dsh-notebook-capture 结构图：保存下来的 .ipynb 在不执行的前提下被分析 —— 内核、执行顺序、import、运行时安装、种子、绝对路径与输出状态 —— 再对 notebook 与每个环境声明文件计算哈希，存为逐条问题的 REP 证据，并渲染成 Markdown 卡片与 SARIF 2.1.0；结论留给审阅人">
@@ -78,7 +77,7 @@
 
 | | |
 |---|---|
-| DeepSeek Harness | **`dsh-v0.2.2-rc.4`**（2026-11-18 实测）；peer `>=0.2.1-0 <0.3.0 \|\| >=0.2.2-0 <0.3.0` |
+| DeepSeek Harness | **`dsh-v0.2.3-alpha.1`**（2026-11-22 实测）；peer `>=0.2.1-0 <0.3.0 \|\| >=0.2.2-0 <0.3.0` |
 | Node | `^22.19.0 \|\| >=24.9.0`（实测 `24.22.1`），仅 ESM |
 | Peer 依赖 | `@perrylink/dsh-research-core ^0.1.0`、`@deepseek-ai/cordis ^4.0.5-alpha.1`、`@deepseek-ai/dsh-tools`、`@deepseek-ai/schemastery ^3.18.5-alpha.1` |
 | 运行时依赖 | **零** |
@@ -110,7 +109,6 @@ dsh --profile <name> --dump-config | grep dsh-notebook-capture
 ![dsh-notebook-capture 测试套件：4 个测试文件的真实运行 —— 6 个解析与分析测试、8 个运行时与工具测试、挂载契约与 2 个插件测试全部通过](docs/assets/dsh-notebook-capture-demo.gif)
 
 *动图是 2026-11-21 真实运行的 `pnpm test` 输出（4 个测试文件、17 个测试）。插件没有 CLI，它自己的测试套件就是那次运行 —— 解析、执行顺序检测、带 REP 记录的 capture，以及卡片。*
-
 
 **17 个测试**：source 数组拼接、无效 JSON/非 notebook/畸形单元的拒绝、单元计数、乱序检测、从未运行的单元、import/安装/种子/绝对路径（每次调用只报一条种子发现）、内核元数据、带环境哈希的 capture 与有效 REP 记录（notebook + 环境 artifacts）、分别从文本和文件 analyze、文件/文本大小上限、路径穿越/符号链接/无效/超大文件拒绝、工具 schema、analyze→capture→card 端到端、畸形 capture 拒绝、失败分支、插件契约、包契约。合成 notebook fixture 位于 `test/fixtures.ts`，因此导入它不会重复注册另一个测试套件的用例。
 
